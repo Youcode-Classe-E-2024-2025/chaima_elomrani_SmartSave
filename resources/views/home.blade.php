@@ -693,7 +693,7 @@
                     &copy; 2025 SaveSmart. Tous droits réservés.
                 </p>
             </div>
-        </div>
+        </div>;
     </footer>
 
     <script>

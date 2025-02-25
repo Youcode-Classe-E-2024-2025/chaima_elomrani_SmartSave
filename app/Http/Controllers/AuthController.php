@@ -53,15 +53,15 @@ class AuthController extends Controller
             return redirect('/')->with('success' , 'login went successfully');
         }
 
-        // return back()->withErrors(['email' => 'Invalid email']);
+        return back()->withErrors(['email' => 'Invalid email']);
     }
 
 
 
-    // public function logout(){
-    //     Auth::logout();
-    //     return redirect('home');
-    // }
+    public function logout(){
+        Auth::logout();
+        return redirect('home');
+    }
 
 
 }
