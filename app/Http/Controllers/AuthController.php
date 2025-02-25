@@ -50,7 +50,7 @@ class AuthController extends Controller
         ]);
         
         if(Auth::attempt(['email'=>$request->email , 'password'=>$request->password])){
-            return redirect('/')->with('success' , 'login went successfully');
+            return redirect('/first')->with('success' , 'login went successfully');
         }
 
         return back()->withErrors(['email' => 'Invalid email']);
@@ -60,7 +60,7 @@ class AuthController extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect('home');
+        return redirect('/');
     }
 
 

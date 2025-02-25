@@ -11,3 +11,5 @@ Route::post('register',[AuthController::class, 'register']);
 Route::get('login', [AuthController::class, 'showlogin']);
 Route::post('login', [AuthController::class, 'login']);
 Route::get('first',[ProfileController::class, 'index']);
+Route::get('logout',[AuthController::class , 'logout']);
+

@@ -62,7 +62,7 @@
         <a href="#" class="text-blue-200 hover:text-white transition duration-300">Dashboard</a>
         <a href="#" class="text-blue-200 hover:text-white transition duration-300">Investments</a>
         <a href="#" class="text-blue-200 hover:text-white transition duration-300">Support</a>
-        <button class="bg-gradient-to-r from-green-500 to-green-600 px-4 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition duration-300">Log Out</button>
+        <a href="logout" class="bg-gradient-to-r from-green-500 to-green-600 px-4 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition duration-300">Log Out</a>
       </div>
       <div class="md:hidden">
         <button class="text-white text-2xl focus:outline-none">
