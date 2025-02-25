@@ -102,8 +102,8 @@
                     </div>
                 </div>
                 <div class="hidden md:flex items-center">
-                    <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Connexion</a>
-                    <a href="#" class="ml-4 px-4 py-2 rounded-md text-sm font-medium bg-accent hover:bg-opacity-90 text-white shadow-sm">S'inscrire</a>
+                    <a href="/login" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Connexion</a>
+                    <a href="/register" class="ml-4 px-4 py-2 rounded-md text-sm font-medium bg-accent hover:bg-opacity-90 text-white shadow-sm">S'inscrire</a>
                 </div>
                 <div class="-mr-2 flex items-center md:hidden">
                     <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
