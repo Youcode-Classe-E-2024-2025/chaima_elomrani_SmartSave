@@ -320,26 +320,38 @@
       <!-- Form for Adding Category -->
     <div class="bg-white p-4 rounded-lg shadow-md mb-6">
         <h2 class="text-xl font-semibold mb-4">Add Category</h2>
-        <form action="create" method="POST" id="categoryForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" id="categoryName" placeholder="Category Name" class="p-2 border rounded">
+        <form action="/categories" method="POST"  class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          @csrf
+            <input type="text" name="name" id="categoryName" placeholder="Category Name" class="p-2 border rounded">
             <button type="submit" class="bg-green-500 text-white p-2 rounded">Add Category</button>
         </form>
     </div>
     
       <!-- Category Table -->
-    <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-        <h2 class="text-xl font-semibold mb-4">Category</h2>
+       <!-- Category Table -->
+       <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+        <h2 class="text-xl font-semibold mb-4">Categories</h2>
         <table class="w-full border-collapse">
             <thead>
                 <tr class="bg-gray-200">
-                    <th class="p-2">Category Name</th>
-                    <th class="p-2">Actions</th>
+                    <th class="p-2 text-left">Category Name</th>
+                    <th class="p-2 text-left">Actions</th>
                 </tr>
-                @foreach ($categories as $category )
-                <td>{{ $category->name }}</td>
-                @endforeach
             </thead>
-            <tbody></tbody>
+            <tbody>
+                @foreach($categories as $category)
+                    <tr class="border-b">
+                        <td class="p-2">{{ $category->name }}</td>
+                        <td class="p-2">
+                        <form action="{{ route('category.delete', $category->id) }}" method="POST">
+                        @csrf
+                            @method('DELETE')
+                        <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
       

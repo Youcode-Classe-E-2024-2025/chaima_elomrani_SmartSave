@@ -15,21 +15,21 @@ class CategoryController extends Controller
     }
 
     public function create(Request $request){
-        
-        if($request->isMethod('POST')){
-            $request->validate([
-                'name'=>'required|string|max:20',
-            ]);
+        $request->validate([
+            'name' => 'required|string|max:20',
+        ]);
+    
+        Category::create([
+            'name' => $request->name,
+        ]);
+    
+        return redirect('/dashboard')->with('success', 'Category added successfully!');
+    }
 
 
-            Category::create([
-                'name'=>$request->name,
-            ]);
-            return  redirect('/dashboard');
-        }
-        return redirect('/404');
-
-
+    public function delete($id){
+        Category::destroy($id);
+        return redirect('/dashboard');
 
     }
 

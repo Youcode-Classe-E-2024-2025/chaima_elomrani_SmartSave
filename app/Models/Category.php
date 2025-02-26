@@ -11,10 +11,6 @@ class Category extends Model
     protected $table = 'category';
     protected $fillable =['name'];
 
-    protected $casts = [
-        'name' => 'array',
-       
-    ];
 
 
 

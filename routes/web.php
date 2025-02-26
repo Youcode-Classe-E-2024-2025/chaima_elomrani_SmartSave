@@ -17,6 +17,7 @@ Route::get('logout',[AuthController::class , 'logout']);
 
 //category crud
 
-
-Route::get('/dashboard', [CategoryController::class , 'index']);
-
+// Category routes
+Route::get('/dashboard', [CategoryController::class, 'index']);
+Route::post('/categories', [CategoryController::class, 'create']);
+Route::delete('/categories/{id}', [CategoryController::class, 'delete'])->name('category.delete');
