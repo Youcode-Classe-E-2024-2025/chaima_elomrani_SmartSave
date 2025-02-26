@@ -317,26 +317,29 @@
         </div>
       </div>
 
-      <!-- Form for Adding Categories -->
+      <!-- Form for Adding Category -->
     <div class="bg-white p-4 rounded-lg shadow-md mb-6">
         <h2 class="text-xl font-semibold mb-4">Add Category</h2>
-        <form id="categoryForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form action="create" method="POST" id="categoryForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input type="text" id="categoryName" placeholder="Category Name" class="p-2 border rounded">
             <button type="submit" class="bg-green-500 text-white p-2 rounded">Add Category</button>
         </form>
     </div>
     
-      <!-- Categories Table -->
+      <!-- Category Table -->
     <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-        <h2 class="text-xl font-semibold mb-4">Categories</h2>
+        <h2 class="text-xl font-semibold mb-4">Category</h2>
         <table class="w-full border-collapse">
             <thead>
                 <tr class="bg-gray-200">
                     <th class="p-2">Category Name</th>
                     <th class="p-2">Actions</th>
                 </tr>
+                @foreach ($categories as $category )
+                <td>{{ $category->name }}</td>
+                @endforeach
             </thead>
-            <tbody id="categoriesTable"></tbody>
+            <tbody></tbody>
         </table>
     </div>
       

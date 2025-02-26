@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -12,4 +13,10 @@ Route::get('login', [AuthController::class, 'showlogin']);
 Route::post('login', [AuthController::class, 'login']);
 Route::get('first',[ProfileController::class, 'index']);
 Route::get('logout',[AuthController::class , 'logout']);
+
+
+//category crud
+
+
+Route::get('/dashboard', [CategoryController::class , 'index']);
 
