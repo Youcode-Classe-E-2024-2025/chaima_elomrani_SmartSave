@@ -59,7 +59,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="admin-users.html"
+                        <a href="first"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-primary-500 pr-6">
                             <span class="inline-flex justify-center items-center ml-4">
                                 <i class="fas fa-users"></i>
@@ -68,7 +68,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="dashboard"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-primary-500 pr-6">
                             <span class="inline-flex justify-center items-center ml-4">
                                 <i class="fas fa-th-large text-primary-500"></i>
@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="admin-tags.html"
+                        <a href="statistics"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-primary-500 pr-6">
                             <span class="inline-flex justify-center items-center ml-4">
                                 <i class="fas fa-tags"></i>
