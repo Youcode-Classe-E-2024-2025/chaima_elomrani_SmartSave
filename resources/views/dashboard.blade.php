@@ -284,33 +284,40 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $transactions as $transaction)
                 <tr class="transaction-item">
                   <td class="py-3 whitespace-nowrap">
                     <div class="flex items-center">
                      
                       <div class="ml-3">
-                        <p class="text-sm font-medium text-gray-800">Paycheck</p>
-                        <p class="text-xs text-gray-500">Employer Inc.</p>
+                        <p class="text-sm font-medium text-gray-800">    {{ $transaction['description'] }}</p>
+                        <p class="text-xs text-gray-500">{{ $transaction['user_id'] }}</p>
                       </div>
                     </div>
                   </td>
                   <td class="py-3 whitespace-nowrap">
                     <span class="px-2 py-1 text-xs font-medium text-blue-700 bg-blue-100 rounded-full">
-                      Salary
+                    {{ $transaction['category_id'] }}
                     </span>
                   </td>
                   <td class="py-3 whitespace-nowrap text-sm text-gray-600">
-                    Feb 20, 2025
+                  {{ $transaction['transaction_date'] }}
                   </td>
                   <td class="py-3 whitespace-nowrap text-sm font-medium text-green-600 text-right">
-                    +$2,150.00
+                    {{ $transaction['amount'] }}
                   </td>
                   <td class="py-3 whitespace-nowrap text-right text-sm">
                     <button class="text-blue-600 hover:text-blue-900 mr-2"><i class="fas fa-edit"></i></button>
-                    <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash-alt"></i></button>
+                    <td class="p-2">
+                        <form action="{{ route('category.delete', $category->id) }}" method="POST">
+                        @csrf
+                            @method('DELETE')
+                        <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                        </td>
                   </td>
                 </tr>
-       
+                    @endforeach
               </tbody>
             </table>
           </div>
@@ -327,33 +334,7 @@
         </form>
     </div>
     
-      <!-- Category Table -->
-       <!-- Category Table -->
-       <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-        <h2 class="text-xl font-semibold mb-4">Categories</h2>
-        <table class="w-full border-collapse">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="p-2 text-left">Category Name</th>
-                    <th class="p-2 text-left">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($categories as $category)
-                    <tr class="border-b">
-                        <td class="p-2">{{ $category->name }}</td>
-                        <td class="p-2">
-                        <form action="{{ route('category.delete', $category->id) }}" method="POST">
-                        @csrf
-                            @method('DELETE')
-                        <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    
       
      
     

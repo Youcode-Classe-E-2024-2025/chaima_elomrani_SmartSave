@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,10 +12,16 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
+            $table->unsignedBigInteger('user_id');
+            $table->string('description');
             $table->decimal('amount', 10, 2);
-            $table->foreign('category')->references('id')->on('category')->onDelete('cascade');
+            $table->enum('type', ['income', 'expense']);
+            $table->unsignedBigInteger('category_id');
+            $table->date('transaction_date');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');      
             $table->timestamps();
+
         });
     }
 

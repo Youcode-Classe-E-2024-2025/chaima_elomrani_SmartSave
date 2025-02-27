@@ -11,7 +11,7 @@ class CategoryController extends Controller
 
     public function index(){
         $categories = Category::all();
-        return view('dashboard', ['categories' => $categories]);
+        return view('categories', ['categories' => $categories]);
     }
 
     public function create(Request $request){
@@ -23,13 +23,13 @@ class CategoryController extends Controller
             'name' => $request->name,
         ]);
     
-        return redirect('/dashboard')->with('success', 'Category added successfully!');
+        return redirect('/categories')->with('success', 'Category added successfully!');
     }
 
 
     public function delete($id){
         Category::destroy($id);
-        return redirect('/dashboard');
+        return redirect('/categories');
 
     }
 

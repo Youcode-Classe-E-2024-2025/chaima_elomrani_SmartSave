@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Transactions;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -18,6 +20,13 @@ Route::get('logout',[AuthController::class , 'logout']);
 //category crud
 
 // Category routes
-Route::get('/dashboard', [CategoryController::class, 'index']);
+Route::get('/categories', [CategoryController::class, 'index']);
 Route::post('/categories', [CategoryController::class, 'create']);
 Route::delete('/categories/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+
+
+// transactions routes 
+
+// Route::get('/dashboard', [TransactionsController::class, 'index']);
+// Route::post('/dashboard', [TransactionsController::class, 'create']);
+// Route::delete('/dashboard/{id}', [TransactionsController::class, 'delete']);
