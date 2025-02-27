@@ -16,6 +16,10 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('first',[ProfileController::class, 'index']);
 Route::get('logout',[AuthController::class , 'logout']);
 
+// profiles 
+
+Route::get('/profile/{id}',[ProfileController::class,'show'])->name('profile.show');
+
 
 //category crud
 
@@ -23,6 +27,7 @@ Route::get('logout',[AuthController::class , 'logout']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::post('/categories', [CategoryController::class, 'create']);
 Route::delete('/categories/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+
 
 
 // transactions routes 

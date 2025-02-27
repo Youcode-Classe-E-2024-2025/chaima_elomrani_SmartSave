@@ -22,14 +22,12 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:500|unique:users',
             'password' => 'required|string|min:6',
-            'role' => 'sometimes|string|in:normal_user,admin',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
         ]);
 
         return redirect('/login')->with('success', 'Registration successful! Please log in.');
@@ -50,7 +48,7 @@ class AuthController extends Controller
         ]);
         
         if(Auth::attempt(['email'=>$request->email , 'password'=>$request->password])){
-            return redirect('/first')->with('success' , 'login went successfully');
+            return redirect('/profile')->with('success' , 'login went successfully');
         }
 
         return back()->withErrors(['email' => 'Invalid email']);
@@ -62,6 +60,13 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    // protected function redirectTo(){
+    //     $user = Auth::user();
+    //     if($user->profiles->count == 0){
+    //         return '/profiles';
+    //     }
+    // }
 
 
 }
