@@ -31,7 +31,7 @@ class AuthController extends Controller
         ]);
 
         return redirect('/login')->with('success', 'Registration successful! Please log in.');
-        
+
     }
 
 
@@ -46,17 +46,19 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-        
-        if(Auth::attempt(['email'=>$request->email , 'password'=>$request->password])){
-            return redirect('/profile')->with('success' , 'login went successfully');
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->route('profile.show', ['id' => Auth::id()])
+                ->with('success', 'You have successfully logged in!');
         }
 
-        return back()->withErrors(['email' => 'Invalid email']);
+        return back()->withErrors([ 'email' => 'The provided credentials do not match our records.', ])->onlyInput('email');
     }
 
 
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect('/');
     }
