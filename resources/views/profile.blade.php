@@ -38,46 +38,8 @@
     <main class="w-full max-w-6xl mx-auto flex flex-col items-center justify-center gap-12">
         
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 w-full max-w-4xl">
-            <!-- Profile 1 -->
-            <div class="profile-card cursor-pointer group">
-                <div class="relative flex flex-col items-center">
-                    <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-blue-500 to-blue-700 shadow-lg transition-all duration-300 group-hover:shadow-2xl">
-                        <img src="https://via.placeholder.com/200" alt="Primary" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
-                        Primary
-                    </span>
-                </div>
-            </div>
 
-            <!-- Profile 2 -->
-            <div class="profile-card cursor-pointer group">
-                <div class="relative flex flex-col items-center">
-                    <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-amber-400 to-amber-600 shadow-lg transition-all duration-300 group-hover:shadow-2xl">
-                        <img src="https://via.placeholder.com/200" alt="Krishnadev" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
-                        Krishnadev
-                    </span>
-                </div>
-            </div>
-
-            <!-- Profile 3 -->
-            <div class="profile-card cursor-pointer group">
-                <div class="relative flex flex-col items-center">
-                    <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-red-500 to-red-700 shadow-lg transition-all duration-300 group-hover:shadow-2xl">
-                        <img src="https://via.placeholder.com/200" alt="Krishnapriya" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
-                        Krishnapriya
-                    </span>
-                </div>
-            </div>
-
-            <!-- Profile 4 -->
+            <!-- Profile  -->
             <div class="profile-card cursor-pointer group">
                 <div class="relative flex flex-col items-center">
                     <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-teal-500 to-teal-700 shadow-lg transition-all duration-300 group-hover:shadow-2xl">
@@ -90,24 +52,7 @@
                 </div>
             </div>
 
-            <!-- Profile 5 (Children - Locked) -->
-            <div class="profile-card cursor-pointer group">
-                <div class="relative flex flex-col items-center">
-                    <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-purple-500 to-blue-500 shadow-lg transition-all duration-300 group-hover:shadow-2xl">
-                        <img src="https://via.placeholder.com/200" alt="Children" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
-                        </div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
-                        Children
-                    </span>
-                </div>
-            </div>
-
+           
             <!-- Add Profile Button -->
             <div class="profile-card cursor-pointer group">
                 <div class="relative flex flex-col items-center">
@@ -133,17 +78,7 @@
         <div class="bg-gray-900 rounded-lg p-8 max-w-md w-full mx-4">
             <h2 class="text-2xl font-bold text-white mb-4">Create New Profile</h2>
             <form id="addProfileForm" class="space-y-6">
-                <div class="flex flex-col items-center mb-4">
-                    <div id="profileImagePreview" class="w-32 h-32 rounded-full bg-gray-700 flex items-center justify-center cursor-pointer overflow-hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                    <input type="file" id="profileImageInput" class="hidden" accept="image/*">
-                    <button type="button" id="uploadImageBtn" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-300">
-                        Upload Photo
-                    </button>
-                </div>
+            
                 <div>
                     <label for="profileName" class="block text-sm font-medium text-gray-400 mb-1">Profile Name</label>
                     <input type="text" id="profileName" name="profileName" required
@@ -214,21 +149,21 @@
         });
 
         // Handle image preview when file is selected
-        profileImageInput.addEventListener('change', (e) => {
-            if (e.target.files && e.target.files[0]) {
-                const reader = new FileReader();
+        // profileImageInput.addEventListener('change', (e) => {
+        //     if (e.target.files && e.target.files[0]) {
+        //         const reader = new FileReader();
                 
-                reader.onload = (event) => {
-                    profileImagePreview.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = event.target.result;
-                    img.classList.add('w-full', 'h-full', 'object-cover');
-                    profileImagePreview.appendChild(img);
-                };
+        //         reader.onload = (event) => {
+        //             profileImagePreview.innerHTML = '';
+        //             const img = document.createElement('img');
+        //             img.src = event.target.result;
+        //             img.classList.add('w-full', 'h-full', 'object-cover');
+        //             profileImagePreview.appendChild(img);
+        //         };
                 
-                reader.readAsDataURL(e.target.files[0]);
-            }
-        });
+        //         reader.readAsDataURL(e.target.files[0]);
+        //     }
+        // });
 
         // Handle form submission
         addProfileForm.addEventListener('submit', (e) => {
