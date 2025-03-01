@@ -48,6 +48,6 @@ class User extends Authenticatable
 
 
     public function profile(){
-        return $this->hasMany(User::class);
+        return $this->hasMany(Profiles::class , 'user_id');
     }
 }

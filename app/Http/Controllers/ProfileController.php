@@ -21,22 +21,29 @@ class ProfileController extends Controller
 
    public function show($id)
    {
-       if (Auth::id() != $id) {
-           return redirect()->route('profile.show', ['id' => Auth::id()])
-               ->with('error', 'You can only view your own profile');
-       }
-
+       // Check if the user exists
        $user = User::findOrFail($id);
        
-       $profiles = $user->profiles ?? collect();
-
+       // Allow viewing if the user is viewing their own profile or is an admin
+       if (Auth::id() != $id && !Auth::user()->isAdmin()) {
+           return redirect()->route('profile.show', ['id' => Auth::id()])
+               ->with('error', 'You are not authorized to view this profile');
+       }
+   
+       // Fetch profiles associated with the user
+       $profiles = Profiles::where('user_id', $id)->get();
+   
        return view('profile', compact('user', 'profiles'));
    }
+
+
 
    public function showCreateForm()
 {
     return view('profile.create');
 }
+
+
 
 public function create(Request $request)
 {

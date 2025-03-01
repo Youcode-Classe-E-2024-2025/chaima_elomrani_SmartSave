@@ -35,46 +35,53 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-950 to-gray-900 min-h-screen flex flex-col items-center justify-center p-4">
-    <main class="w-full max-w-6xl mx-auto flex flex-col items-center justify-center gap-12">
-        
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 w-full max-w-4xl">
+<main class="w-full max-w-6xl mx-auto flex flex-col items-center justify-center gap-12">
+    <div class="max-w-full flex flex-wrap gap-6 justify-center">  <!-- FLEX CONTAINER -->
 
-            <!-- Profile  -->
-            <div class="profile-card cursor-pointer group">
-                @foreach ($profiles as $profile)
-               
-                <div class="relative flex flex-col items-center">
-                    <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-teal-500 to-teal-700 shadow-lg transition-all duration-300 group-hover:shadow-2xl">
-                        <img src="https://via.placeholder.com/200" alt="Guest" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
-                        {{ $profile['name'] }}
-                    </span>
-                </div>
-                @endforeach
-            </div>
-
-           
-            <!-- Add Profile Button -->
-            <div class="profile-card cursor-pointer group">
-                <div class="relative flex flex-col items-center">
-                    <div id="addBtn" class="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-800 shadow-lg transition-all duration-300 group-hover:shadow-2xl flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        <!-- Profile Cards -->
+        @foreach ($profiles as $profile)
+        <div class="profile-card cursor-pointer group">
+            <div class="items-center">
+                <div class="relative w-32 h-32 rounded-xl overflow-hidden bg-gradient-to-b from-teal-500 to-teal-700 shadow-lg">
+                    <img src="https://via.placeholder.com/200" alt="Guest" class="w-full h-full object-cover opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    <!-- Trash icon - hidden by default, shown on hover -->
+                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white hover:text-red-500 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
                     </div>
-                    <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
-                        Add Profile
-                    </span>
                 </div>
+                <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
+                    {{ $profile->name }}
+                </span>
             </div>
         </div>
-        
-        <button class="mt-8 px-8 py-2 text-gray-400 hover:text-white border border-gray-700 rounded-md hover:bg-gray-800 transition-all duration-300">
-            Manage Profiles
-        </button>
-    </main>
+        @endforeach
+
+        <!-- Add Profile Button -->
+        <div class="profile-card cursor-pointer group">
+            <div class="relative flex flex-col items-center">
+                <div id="addBtn" class="relative w-32 h-32 rounded-xl overflow-hidden bg-gray-800 shadow-lg transition-all duration-300 group-hover:shadow-2xl flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                </div>
+                <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
+                    Add Profile
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Manage Profiles Button -->
+    <button class="mt-8 px-8 py-2 text-gray-400 hover:text-white border border-gray-700 rounded-md hover:bg-gray-800 transition-all duration-300">
+        Manage Profiles
+    </button>
+</main>
+    
 
     <!-- Modal for adding a new profile -->
     <div id="addProfileModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
