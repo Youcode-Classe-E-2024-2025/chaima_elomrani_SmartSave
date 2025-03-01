@@ -62,4 +62,31 @@ public function create(Request $request)
     return redirect()->route('profile.show', ['id' => Auth::id()])
         ->with('success', 'Profile created successfully');
 }
+
+
+
+public function delete($id)
+{
+    // Find the profile
+    $profile = Profiles::findOrFail($id);
+
+    // Ensure the user is deleting their own profile
+    if ($profile->user_id !== Auth::id()) {
+        return redirect()->route('profile.show', ['id' => Auth::id()])
+            ->with('error', 'You are not authorized to delete this profile');
+    }
+
+    // Delete the profile
+    $profile->delete();
+
+    return redirect()->route('profile.show', ['id' => Auth::id()])
+        ->with('success', 'Profile deleted successfully');
+}
+
+
+
+
+
+
+
 }

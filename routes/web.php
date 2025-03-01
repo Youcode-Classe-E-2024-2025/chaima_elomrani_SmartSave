@@ -20,6 +20,7 @@ Route::get('logout',[AuthController::class , 'logout']);
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 Route::get('/profile.create', [ProfileController::class, 'showCreateForm'])->name('profile.create.form');
 Route::post('/profile.create', [ProfileController::class, 'create'])->name('profile.create');
+Route::delete('profile/{id}',[ProfileController::class , 'delete'])->name('profile.delete');
 
 
 //category crud
