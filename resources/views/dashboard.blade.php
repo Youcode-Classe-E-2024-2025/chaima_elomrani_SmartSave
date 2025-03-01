@@ -49,9 +49,7 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition duration-300">
-                        <i class="fas fa-plus mr-2"></i> Add Transaction
-                    </button>
+                    
                     <div class="relative">
                         <button class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span class="sr-only">Open user menu</span>
@@ -70,6 +68,9 @@
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-3xl font-bold text-gray-800">Financial Dashboard</h1>
             <div class="flex space-x-4">
+            <a href="categories" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition duration-300">
+                        <i class="fas fa-plus mr-2"></i> Add Category
+                    </a>
                 <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow transition duration-300">
                     <i class="fas fa-flag mr-2"></i> New Goal
                 </button>
@@ -201,6 +202,16 @@
                         <div>
                             <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
                             <select id="category" name="category" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                              @foreach ($categories as $category )
+                                <option value="income">{{ $category->name }}</option>
+                              
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
+                            <select id="type" name="type" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                 <option value="income">Income</option>
                                 <option value="expense">Expense</option>
                             </select>

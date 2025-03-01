@@ -11,7 +11,11 @@ class CategoryController extends Controller
 
     public function index(){
         $categories = Category::all();
-        return view('categories', ['categories' => $categories]);
+        return view('categories', compact('categories'));
+    }
+    public function dashboard(){
+        $categories = Category::all();
+        return view('dashboard', compact('categories'));
     }
 
     public function create(Request $request){
@@ -23,13 +27,13 @@ class CategoryController extends Controller
             'name' => $request->name,
         ]);
     
-        return redirect('/categories')->with('success', 'Category added successfully!');
+        return redirect('categories')->with('success', 'Category added successfully!');
     }
 
 
     public function delete($id){
         Category::destroy($id);
-        return redirect('/categories');
+        return redirect('categories');
 
     }
 
