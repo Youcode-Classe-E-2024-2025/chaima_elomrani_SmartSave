@@ -41,15 +41,18 @@
 
             <!-- Profile  -->
             <div class="profile-card cursor-pointer group">
+                @foreach ($profiles as $profile)
+               
                 <div class="relative flex flex-col items-center">
                     <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-teal-500 to-teal-700 shadow-lg transition-all duration-300 group-hover:shadow-2xl">
                         <img src="https://via.placeholder.com/200" alt="Guest" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
-                        Guest
+                        {{ $profile['name'] }}
                     </span>
                 </div>
+                @endforeach
             </div>
 
            
@@ -77,15 +80,15 @@
     <div id="addProfileModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-gray-900 rounded-lg p-8 max-w-md w-full mx-4">
             <h2 class="text-2xl font-bold text-white mb-4">Create New Profile</h2>
-            <form id="addProfileForm" class="space-y-6">
-            
-                <div>
-                    <label for="profileName" class="block text-sm font-medium text-gray-400 mb-1">Profile Name</label>
-                    <input type="text" id="profileName" name="profileName" required
+            <form id="addProfileForm" class="space-y-6" action="{{ route('profile.create') }}" method="POST"> 
+                @csrf
+                    <div>
+                    <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Profile Name</label>
+                    <input type="text" id="name" name="name" required
                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
-                    <label for="profileName" class="block text-sm font-medium text-gray-400 mb-1">Phone number</label>
+                    <label for="number" class="block text-sm font-medium text-gray-400 mb-1">Phone number</label>
                     <input type="text " id="number" name="number" required
                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>

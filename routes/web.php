@@ -17,8 +17,9 @@ Route::get('first',[ProfileController::class, 'index']);
 Route::get('logout',[AuthController::class , 'logout']);
 
 // profiles 
-
-Route::get('/profile/{id}',[ProfileController::class,'show'])->name('profile.show');
+Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/profile.create', [ProfileController::class, 'showCreateForm'])->name('profile.create.form');
+Route::post('/profile.create', [ProfileController::class, 'create'])->name('profile.create');
 
 
 //category crud

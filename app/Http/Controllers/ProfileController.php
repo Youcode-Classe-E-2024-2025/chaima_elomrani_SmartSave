@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Contracts\Service\Attribute\Required;
 
+
 class ProfileController extends Controller
 {
    public function index()
@@ -32,17 +33,26 @@ class ProfileController extends Controller
        return view('profile', compact('user', 'profiles'));
    }
 
-   public function create(Request $request){
-      $request->validate([
-         'name'=> 'required|string|max:50',
-         'number'=>'required|string|max:20',
-      ]);
+   public function showCreateForm()
+{
+    return view('profile.create');
+}
 
-      Profiles::create([
-         'name'=>$request->name,
-         'number'=>$request->number,
-      ]);
+public function create(Request $request)
+{
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:50',
+        'number' => 'required|string|max:20',
+    ]);
 
-      return redirect('/profile');
-   }
+    // Correctly retrieve authenticated user's ID
+    $profile = Profiles::create([
+        'user_id' => Auth::id(), // Correct way to get user ID
+        'name' => $validatedData['name'],
+        'number' => $validatedData['number'],
+    ]);
+
+    return redirect()->route('profile.show', ['id' => Auth::id()])
+        ->with('success', 'Profile created successfully');
+}
 }
