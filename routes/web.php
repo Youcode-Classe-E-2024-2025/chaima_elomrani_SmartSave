@@ -32,8 +32,9 @@ Route::delete('/categories/{id}', [CategoryController::class, 'delete'])->name('
 
 
 
-// transactions routes 
 
-// Route::get('/dashboard', [TransactionsController::class, 'index']);
+// dashboard
+Route::get('/dashboard', [TransactionsController::class, 'index']);
+
 // Route::post('/dashboard', [TransactionsController::class, 'create']);
 // Route::delete('/dashboard/{id}', [TransactionsController::class, 'delete']);
