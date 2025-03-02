@@ -18,10 +18,13 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->timestamp('email_verified_at')->nullable();
+
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
@@ -33,6 +36,9 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
+
+            $table->timestamp('email_verified_at')->nullable();
+
         });
     }
 

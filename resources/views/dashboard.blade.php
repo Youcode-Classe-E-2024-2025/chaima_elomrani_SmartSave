@@ -142,62 +142,10 @@
           </div>
         </div>
 
-        <!-- Recent Transactions -->
-        <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-lg font-semibold text-gray-800">Recent Transactions</h2>
-            <div class="flex items-center space-x-2">
-              <select id="transactionFilter"
-                class="bg-gray-100 border-none rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="all">All</option>
-                <option value="income">Income</option>
-                <option value="expense">Expense</option>
-              </select>
-              <button class="text-blue-600 hover:text-blue-800 text-sm transition duration-300">
-                View All
-              </button>
-            </div>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="min-w-full">
-              <thead>
-                <tr class="border-b border-gray-200">
-                  <th class="py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                  <th class="py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                  <th class="py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th class="py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="hover:bg-gray-50">
-                  <td class="py-4 whitespace-nowrap">
-                    <div class="flex items-center">
-                      <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">Grocery Shopping</div>
-                        <div class="text-sm text-gray-500">Walmart</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="py-4 whitespace-nowrap">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                      Expense
-                    </span>
-                  </td>
-                  <td class="py-4 whitespace-nowrap text-sm text-gray-500">2023-05-15</td>
-                  <td class="py-4 whitespace-nowrap text-sm text-gray-500 text-right">$120.50</td>
-                </tr>
-                <!-- Add more transaction rows here -->
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
 
-      <!-- Right Column - Forms and Additional Info -->
       <div class="space-y-8">
-       
-
-        <!-- Savings Goal -->
+          <!-- Savings Goal -->
         <div class="bg-white rounded-xl shadow-md p-6 card-hover">
           <h2 class="text-lg font-semibold text-gray-800 mb-4">Savings Goal</h2>
           <div class="flex justify-between items-center mb-2">

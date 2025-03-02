@@ -8,17 +8,12 @@ use Illuminate\Http\Request;
 class TransactionsController extends Controller
 {
 
-
-    public function index(){
-        return view('transactions');
+    public function index()
+    {
+        $transactions = Transactions::all();
+        $transactions = Transactions::with('category')->get();
+        return view('transactions', compact('transactions'));
     }
-   
-
-    // public function index()
-    // {
-    //     $transactions = Transactions::all();
-    //     return view('dashboard', ['transaction', $transactions]);
-    // }
 
     // public function create(Request $request)
     // {
@@ -42,8 +37,8 @@ class TransactionsController extends Controller
     //     return redirect('dashboard');
     // }
 
-    // public function delete($id){
-    //     Transactions::destroy($id);
-    //     return redirect('/dashboard');
-    // }
+    public function delete($id){
+        Transactions::destroy($id);
+        return redirect('transactions');
+    }
 }
