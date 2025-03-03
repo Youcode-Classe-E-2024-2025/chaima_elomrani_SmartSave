@@ -30,35 +30,7 @@
 </head>
 
 <body class="bg-gray-100 min-h-screen">
-    <!-- Top Navigation -->
-    <nav class="bg-gradient-primary text-white shadow-lg">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-4">
-                    <span class="text-2xl font-bold">Save<span class="text-green-400">Smart</span></span>
-                    <div class="hidden md:flex space-x-4">
-                        <a href="#" class="text-blue-200 hover:text-white transition duration-300">Dashboard</a>
-                        <a href="#"
-                            class="text-blue-200 hover:text-white transition duration-300 border-b-2 border-green-400 pb-1">Transactions</a>
-                        <a href="#" class="text-blue-200 hover:text-white transition duration-300">Reports</a>
-                        <a href="#" class="text-blue-200 hover:text-white transition duration-300">Goals</a>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="relative">
-                        <button
-                            class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                            <span class="sr-only">Open user menu</span>
-                            <div
-                                class="h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 flex items-center justify-center">
-                                <span class="text-white font-medium">RJ</span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+<x-header />
 
     <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">

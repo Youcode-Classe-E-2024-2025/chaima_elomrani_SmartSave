@@ -21,6 +21,7 @@
 </head>
 
 <body class="bg-gray-100">
+<x-header />
     <!-- Modal Overlay - Hidden by default -->
     <div id="addForm" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
         <div class="bg-white rounded-lg shadow-md p-6 w-96 max-w-md mx-auto">
@@ -46,8 +47,8 @@
         </div>
     </div>
 
-    <div class="flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800">
-        <div class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
+    <div class="flex flex-col flex-auto  bg-gray-50 text-gray-800">
+        <!-- <div class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
             <div class="flex items-center justify-center h-14 border-b">
                 <div class="text-2xl font-bold text-primary-600">Youdemy Admin</div>
             </div>
@@ -87,18 +88,9 @@
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="ml-64 flex-1">
-            <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-                <h1 class="text-2xl font-semibold text-gray-800">Manage Categories</h1>
-                <div class="flex items-center space-x-4">
-                    <span class="text-gray-600">Welcome, Admin</span>
-                    <button
-                        class="bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200">
-                        Logout
-                    </button>
-                </div>
-            </header>
+        </div> -->
+        <div class=" flex-1">
+        
             <main class="p-6">
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <div class="flex justify-between items-center mb-6">

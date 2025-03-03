@@ -50,7 +50,7 @@ class TransactionsController extends Controller
             
             return redirect('transactions')
                 ->with('error', 'Failed to create transaction. ' . $e->getMessage());
-        }
+        }   
     }  
 
     public function delete($id){
