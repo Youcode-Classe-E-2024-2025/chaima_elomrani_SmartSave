@@ -30,7 +30,7 @@
 </head>
 
 <body class="bg-gray-100 min-h-screen">
-<x-header />
+  <x-header />
 
     <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">

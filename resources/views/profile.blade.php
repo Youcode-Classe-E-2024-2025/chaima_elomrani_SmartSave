@@ -60,37 +60,38 @@
 
             <!-- Profile Cards -->
             @foreach ($profiles as $profile)
+            <a href="/showDashboard" class="profile-card-link">  
                 <div class="profile-card cursor-pointer group relative">
-                                <form action="{{ route('profile.delete', $profile->id) }}" method="POST"
-                                    class="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="hover:text-red-500 transition-colors duration-200"
-                                        onclick="return confirm('Are you sure you want to delete this profile?')">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
-                                </form>
-                                <div class="items-center">
-                                    <div
-                                        class="relative w-32 h-32 rounded-xl overflow-hidden bg-gradient-to-b from-teal-500 to-teal-700 shadow-lg">
-                                        <img src="https://via.placeholder.com/200" alt="Guest"
-                                            class="w-full h-full object-cover opacity-90">
-                                        <div
-                                            class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        </div>
-                                    </div>
-                                    <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
-                                        {{ $profile->name }}
-                                    </span>
-                                </div>
-                            </div>
+                    <form action="{{ route('profile.delete', $profile->id) }}" method="POST"
+                        class="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="hover:text-red-500 transition-colors duration-200"
+                            onclick="return confirm('Are you sure you want to delete this profile?')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
+                    </form>
+                </>
+                    <div class="items-center">
+                        <div
+                        class="relative w-32 h-32 rounded-xl overflow-hidden bg-gradient-to-b from-teal-500 to-teal-700 shadow-lg">
+                        
+                        <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    </div>
+                </div>
+                <span class="mt-3 text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
+                    {{ $profile->name }}
+                        </span>
+                    </div>
+                </div>
             @endforeach
 
-        <!-- Add Profile Button -->
+            <!-- Add Profile Button -->
             <div class="profile-card cursor-pointer group">
                 <div class="relative flex flex-col items-center">
                     <div id="addBtn"
@@ -171,18 +172,10 @@
             addProfileModal.classList.add('modal-fade-out');
             setTimeout(() => {
                 addProfileModal.classList.add('hidden');
-                addProfileModal.classList.remove('modal-fade-in', 'modal-fade-out');
-                // Reset form
-                addProfileForm.reset();
-                // Reset image preview
-                profileImagePreview.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                `;
-            }, 300); // Match the animation duration
-        });
+            
 
+        });
+});
         // Close modal when clicking outside of it
         addProfileModal.addEventListener('click', (e) => {
             if (e.target === addProfileModal) {
@@ -190,35 +183,9 @@
             }
         });
 
-        // Handle image upload button click
-        uploadImageBtn.addEventListener('click', () => {
-            profileImageInput.click();
-        });
+ 
 
-        // Handle image preview when file is selected
-        // profileImageInput.addEventListener('change', (e) => {
-        //     if (e.target.files && e.target.files[0]) {
-        //         const reader = new FileReader();
-
-        //         reader.onload = (event) => {
-        //             profileImagePreview.innerHTML = '';
-        //             const img = document.createElement('img');
-        //             img.src = event.target.result;
-        //             img.classList.add('w-full', 'h-full', 'object-cover');
-        //             profileImagePreview.appendChild(img);
-        //         };
-
-        //         reader.readAsDataURL(e.target.files[0]);
-        //     }
-        // });
-
-        // Handle form submission
-        addProfileForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Here you would typically handle the form data
-            // For now, just close the modal
-            cancelAddProfile.click();
-        });
+   
     </script>
 </body>
 

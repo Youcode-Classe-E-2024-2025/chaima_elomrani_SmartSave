@@ -21,6 +21,13 @@ Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.s
 Route::get('/profile.create', [ProfileController::class, 'showCreateForm'])->name('profile.create.form');
 Route::post('/profile.create', [ProfileController::class, 'create'])->name('profile.create');
 Route::delete('profile/{id}',[ProfileController::class , 'delete'])->name('profile.delete');
+Route::get('/showDashboard', [ProfileController::class , 'showDashboard' ]);
+
+
+
+
+
+
 
 
 //category crud
@@ -40,3 +47,4 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/transactions', [TransactionsController::class, 'index']);
 Route::delete('transactions/{id}',[TransactionsController::class, 'delete'])->name('transaction.delete');
 Route::post('transactions',[TransactionsController::class , 'create'])->name('transaction.create');
+Route::get('/profiles/select/{id}', [ProfileController::class, 'select'])->name('profile.select');

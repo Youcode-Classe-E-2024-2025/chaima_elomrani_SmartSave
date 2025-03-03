@@ -17,9 +17,25 @@ class TransactionsController extends Controller
 
     public function create(Request $request)
     {
+        // Detailed logging and debugging
+        \Log::info('Transaction Creation Request', [
+            'all_input' => $request->all(),
+            'authenticated' => auth()->check(),
+            'user' => auth()->user(),
+            'user_id' => auth()->id(),
+        ]);
+    
         // Ensure user is authenticated
         if (!auth()->check()) {
+            \Log::error('Transaction creation attempted without authentication');
             return redirect('login')->with('error', 'Please log in to create a transaction');
+        }
+    
+        // Explicitly get the authenticated user's ID
+        $userId = auth()->id();
+        if (!$userId) {
+            \Log::error('No valid user ID found');
+            return redirect('login')->with('error', 'Unable to identify user');
         }
     
         $validator = \Validator::make($request->all(), [
@@ -31,6 +47,10 @@ class TransactionsController extends Controller
         ]);
     
         if ($validator->fails()) {
+            \Log::warning('Transaction validation failed', [
+                'errors' => $validator->errors(),
+                'input' => $request->all()
+            ]);
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput()
@@ -39,19 +59,27 @@ class TransactionsController extends Controller
     
         try {
             $validatedData = $validator->validated();
-            $validatedData['user_id'] = auth()->id();
+            $validatedData['user_id'] = $userId;
+    
+            \Log::info('Attempting to create transaction', [
+                'validated_data' => $validatedData
+            ]);
     
             $transaction = Transactions::create($validatedData);
     
             return redirect('transactions')
                 ->with('success', 'Transaction created successfully');
         } catch (\Exception $e) {
-            \Log::error('Transaction creation failed: ' . $e->getMessage());
+            \Log::error('Transaction creation failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'data' => $validatedData ?? 'No data'
+            ]);
             
             return redirect('transactions')
                 ->with('error', 'Failed to create transaction. ' . $e->getMessage());
         }   
-    }  
+    }
 
     public function delete($id){
         Transactions::destroy($id);
