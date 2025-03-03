@@ -39,3 +39,4 @@ Route::get('/categories', [CategoryController::class, 'index']);
 // dashboard/transactions
 Route::get('/transactions', [TransactionsController::class, 'index']);
 Route::delete('transactions/{id}',[TransactionsController::class, 'delete'])->name('transaction.delete');
+Route::post('transactions',[TransactionsController::class , 'create'])->name('transaction.create');

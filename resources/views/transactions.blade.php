@@ -74,7 +74,8 @@
         <div id="addTransactionForm" class="bg-white rounded-xl shadow-md p-6 mb-8 hidden">
             <h2 class="text-lg font-semibold text-gray-800 mb-4">Add New Transaction</h2>
 
-            <form id="transactionForm" class="space-y-4">
+            <form id="transactionForm" class="space-y-4" action="{{ route('transaction.create')}}" method="post">
+                @csrf
                 <div>
                     <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                     <input type="text" id="description" name="description"
@@ -86,16 +87,26 @@
                         class="mt-1 block w-full border p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
                 <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
-                    <select id="category" name="category"
+    <label for="category_id" class="block text-sm font-medium text-gray-700">Category</label>
+    <select id="category_id" name="category_id" required
+        class="mt-1 block w-full border p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <option value="">Select Category</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+        @endforeach
+    </select>
+</div>
+                <div>
+                    <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
+                    <select id="type" name="type"
                         class="mt-1 block w-full border p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <option value="income">Income</option>
                         <option value="expense">Expense</option>
                     </select>
                 </div>
                 <div>
-                    <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
-                    <input type="date" id="date" name="date"
+                    <label for="transaction_date" class="block text-sm font-medium text-gray-700">Transaction Date</label>
+                    <input type="transaction_date" id="transaction_date" name="transaction_date"
                         class="mt-1 block w-full border p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
                 <div class="flex justify-end space-x-3">
@@ -188,90 +199,20 @@
     </div>
 
     <script>
-
-        // DOM elements  
         const transactionForm = document.getElementById('transactionForm');
         const cancelTransactionBtn = document.getElementById('cancelTransactionBtn');
-        const transactionFilter = document.getElementById('transactionFilter');
 
-        // Show/hide add transaction form
         addTransactionBtn.addEventListener('click', () => {
             addTransactionForm.classList.toggle('hidden');
         });
 
         cancelTransactionBtn.addEventListener('click', () => {
             addTransactionForm.classList.add('hidden');
-            // transactionForm.reset();
         });
 
-        // Add new transaction
-        // transactionForm.addEventListener('submit', (e) => {
-        //     e.preventDefault();
-        //     const newTransaction = {
-        //         id: transactions.length + 1,
-        //         description: document.getElementById('description').value,
-        //         amount: parseFloat(document.getElementById('amount').value),
-        //         category: document.getElementById('category').value,
-        //         date: document.getElementById('date').value
-        //     };
-        //     transactions.push(newTransaction);
-        //     renderTransactions();
-        //     addTransactionForm.classList.add('hidden');
-        //     transactionForm.reset();
-        // });
+   
 
-        // Render transactions
-        // function renderTransactions(filter = 'all') {
-        //     transactionsTableBody.innerHTML = '';
-        //     transactions
-        //         .filter(transaction => filter === 'all' || transaction.category === filter)
-        //         .forEach(transaction => {
-        //             const row = document.createElement('tr');
-        //             row.innerHTML = `
-        //                 <td class="py-4 whitespace-nowrap text-sm font-medium text-gray-900">${transaction.description}</td>
-        //                 <td class="py-4 whitespace-nowrap text-sm text-gray-500">
-        //                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${transaction.category === 'income' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-        //                         ${transaction.category}
-        //                     </span>
-        //                 </td>
-        //                 <td class="py-4 whitespace-nowrap text-sm text-gray-500">${transaction.date}</td>
-        //                 <td class="py-4 whitespace-nowrap text-sm text-gray-500 text-right">${transaction.amount.toFixed(2)}</td>
-        //                 <td class="py-4 whitespace-nowrap text-right text-sm font-medium">
-        //                     <button onclick="editTransaction(${transaction.id})" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</button>
-        //                     <button onclick="deleteTransaction(${transaction.id})" class="text-red-600 hover:text-red-900">Delete</button>
-        //                 </td>
-        //             `;
-        //             transactionsTableBody.appendChild(row);
-        //         });
-        // }
-
-        // Filter transactions
-        transactionFilter.addEventListener('change', (e) => {
-            renderTransactions(e.target.value);
-        });
-
-        // Edit transaction
-        function editTransaction(id) {
-            const transaction = transactions.find(t => t.id === id);
-            if (transaction) {
-                document.getElementById('description').value = transaction.description;
-                document.getElementById('amount').value = Math.abs(transaction.amount);
-                document.getElementById('category').value = transaction.category;
-                document.getElementById('date').value = transaction.date;
-                addTransactionForm.classList.remove('hidden');
-                // Remove the edited transaction and re-add it after editing
-                transactions = transactions.filter(t => t.id !== id);
-            }
-        }
-
-        // Delete transaction
-        // function deleteTransaction(id) {
-        //     transactions = transactions.filter(t => t.id !== id);
-        //     renderTransactions();
-        // }
-
-        // Initial render
-        // renderTransactions();
+     
     </script>
 </body>
 
