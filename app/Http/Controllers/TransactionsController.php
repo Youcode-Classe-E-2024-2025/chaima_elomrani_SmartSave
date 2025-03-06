@@ -85,4 +85,13 @@ class TransactionsController extends Controller
         Transactions::destroy($id);
         return redirect('transactions');
     }
+
+
+
+    // public function getAll($id){
+    //     $transactions = Transactions::where('user_id', $id)->get();
+    //     $transactionCount = $transactions->count();
+    //     return view('dashboard',compact('transactions', 'transactionCount'));
+    // }
+
 }

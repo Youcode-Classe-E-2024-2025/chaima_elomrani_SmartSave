@@ -24,23 +24,14 @@ Route::delete('profile/{id}',[ProfileController::class , 'delete'])->name('profi
 Route::get('/showDashboard', [ProfileController::class , 'showDashboard' ]);
 
 
-
-
-
-
-
-
 //category crud
 
 // Category routes
-// Category and Dashboard routes
 Route::get('/dashboard', [CategoryController::class, 'dashboard']);
 Route::post('/dashboard', [CategoryController::class, 'create']);
-Route::delete('/dashboard/{id}', [CategoryController::class, 'delete'])->name('category.delete');
-
-
-//category page 
+Route::delete('/dashboard/{id}', [CategoryController::class, 'delete'])->name('category.delete');   
 Route::get('/categories', [CategoryController::class, 'index']);
+// Route::get('/dashboard', [Transactions::class , 'getAll']);
 
 
 // dashboard/transactions

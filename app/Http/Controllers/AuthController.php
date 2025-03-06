@@ -63,12 +63,7 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    // protected function redirectTo(){
-    //     $user = Auth::user();
-    //     if($user->profiles->count == 0){
-    //         return '/profiles';
-    //     }
-    // }
+ 
 
 
 }
