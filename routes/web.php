@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GoalController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Transactions;
@@ -39,3 +40,8 @@ Route::get('/transactions', [TransactionsController::class, 'index']);
 Route::delete('transactions/{id}',[TransactionsController::class, 'delete'])->name('transaction.delete');
 Route::post('transactions',[TransactionsController::class , 'create'])->name('transaction.create');
 Route::get('/profiles/select/{id}', [ProfileController::class, 'select'])->name('profile.select');
+
+
+
+// goals page 
+Route::get('/goals',[GoalController::class , 'index']);
