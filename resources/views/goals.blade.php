@@ -217,13 +217,10 @@
           <select id="goalCategory" name="goalCategory" required
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="">Select a category</option>
-            <option value="vacation">Vacation</option>
-            <option value="emergency">Emergency Fund</option>
-            <option value="retirement">Retirement</option>
-            <option value="education">Education</option>
-            <option value="home">Home Purchase</option>
-            <option value="car">Vehicle</option>
-            <option value="other">Other</option>
+            @foreach ($categories as $category )
+            <option value="vacation">{{ $category->name }}</option>
+            @endforeach
+          
           </select>
         </div>
         

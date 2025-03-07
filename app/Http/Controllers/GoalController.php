@@ -8,15 +8,14 @@ use Illuminate\Http\Request;
 
 class GoalController extends Controller
 {
-     //     return view('goals');
-       
-    // }// public function index(){
+     
    
 
     public function index()
 {
-    $goals = Goals::with('category')->get(); // Fetch all goals with their categories
-    return view('goals', compact('goals')); // Pass the goals to the view
+    $goals = Goals::with('category')->get(); 
+    $categories = Category::all(); 
+    return view('goals', compact('goals', 'categories'));
 }
 
 
