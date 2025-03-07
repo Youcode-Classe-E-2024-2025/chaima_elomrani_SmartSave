@@ -84,21 +84,7 @@ public function delete($id)
 }
 
 
-// public function select($id)
-// {
-//     $profile = Profiles::findOrFail($id);
-    
-//     // Security check - only allow selection if profile belongs to current user
-//     if ($profile->user_id !== Auth::id()) {
-//         abort(403, 'Unauthorized action.');
-//     }
-    
-//     // Store the selected profile ID in the session
-//     session(['selected_profile_id' => $profile->id]);
-    
-//     // Redirect to dashboard with user_id (account holder)
-//     return redirect('/dashboard');
-// }
+
 
 public function showDashboard(){
     return view('dashboard');

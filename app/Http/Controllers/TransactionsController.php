@@ -17,7 +17,6 @@ class TransactionsController extends Controller
 
     public function create(Request $request)
     {
-        // Detailed logging and debugging
         \Log::info('Transaction Creation Request', [
             'all_input' => $request->all(),
             'authenticated' => auth()->check(),
@@ -25,13 +24,11 @@ class TransactionsController extends Controller
             'user_id' => auth()->id(),
         ]);
     
-        // Ensure user is authenticated
         if (!auth()->check()) {
             \Log::error('Transaction creation attempted without authentication');
             return redirect('login')->with('error', 'Please log in to create a transaction');
         }
     
-        // Explicitly get the authenticated user's ID
         $userId = auth()->id();
         if (!$userId) {
             \Log::error('No valid user ID found');

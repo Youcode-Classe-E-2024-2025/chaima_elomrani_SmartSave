@@ -42,6 +42,11 @@ Route::post('transactions',[TransactionsController::class , 'create'])->name('tr
 Route::get('/profiles/select/{id}', [ProfileController::class, 'select'])->name('profile.select');
 
 
+// Route for displaying the goals (GET)
+Route::get('/goals', [GoalController::class, 'index'])->name('goals.index');
+Route::post('/goals', [GoalController::class, 'create'])->name('goals.create');
 
 // goals page 
-Route::get('/goals',[GoalController::class , 'index']);
+// Route::get('/goals',[GoalController::class , 'index']);
+// Route::get('/goals/{id}',[GoalController::class , 'show']);
+// Route::post('/goals',[GoalController::class , 'create']);

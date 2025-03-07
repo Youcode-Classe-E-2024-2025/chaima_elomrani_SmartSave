@@ -67,7 +67,6 @@
         <h2 class="text-xl font-semibold text-gray-800">Your Goals</h2>
         <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full" id="goalCount">0 Goals</span>
       </div>
-      
       <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
         <div class="relative">
           <input type="text" id="searchGoals" placeholder="Search goals..." 
@@ -121,11 +120,69 @@
     
     <!-- Goals Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="goalsContainer">
-      <!-- Goals will be dynamically inserted here -->
+      <!-- Example Goal Card (Fixed) -->
+     <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+        <div class="p-1 bg-blue-500"></div>
+        @foreach ($goals as $goal)
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-4">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-blue-100">
+                <i class="fas fa-plane text-lg text-blue-500"></i>
+              </div>
+
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">{{ $goal->name }}</h3>
+                <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">{{ $goal->category->name }}</span>
+              </div>
+            </div>
+            <div class="dropdown relative">
+              <button class="text-gray-400 hover:text-gray-600 focus:outline-none" data-goal-id="1">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+              <div class="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-10">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 edit-goal" data-goal-id="1">
+                  <i class="fas fa-edit mr-2"></i> Edit
+                </a>
+                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 delete-goal" data-goal-id="1">
+                  <i class="fas fa-trash mr-2"></i> Delete
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-sm font-medium text-gray-700">75% Complete</span>
+              <span class="text-sm font-medium text-gray-700">$3,750 / $5,000</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div class="h-2.5 rounded-full bg-blue-500" style="width: 75%"></div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center text-sm text-gray-500">
+            <div>
+              <i class="fas fa-dollar-sign mr-1"></i> $1,250 left
+            </div>
+            <div>
+              <i class="far fa-calendar-alt mr-1"></i> 2 months left
+            </div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t border-gray-100">
+            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition duration-300 add-funds" data-goal-id="1">
+              <i class="fas fa-plus mr-2"></i> Add Funds
+            </button>
+          </div>
+        </div>
+               
+        @endforeach
+      </div>
     </div>
     
     <!-- Empty State -->
-    <div id="emptyState" class="text-center py-16">
+    <div id="emptyState" class="hidden text-center py-16">
       <div class="mx-auto w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mb-4">
         <i class="fas fa-flag text-gray-400 text-3xl"></i>
       </div>
@@ -146,7 +203,8 @@
           <i class="fas fa-times text-xl"></i>
         </button>
       </div>
-      <form id="goalForm" class="p-6 space-y-4">
+      <form id="goalForm" class="p-6 space-y-4" action="goals.create" method="POST">
+        @csrf
         <div>
           <label for="goalName" class="block text-sm font-medium text-gray-700 mb-1">Goal Name</label>
           <input type="text" id="goalName" name="goalName" required
