@@ -13,51 +13,16 @@
     body {
       font-family: 'Inter', sans-serif;
     }
-
-    .card-hover {
-      transition: all 0.3s ease;
-    }
-
-    .card-hover:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Modal animation */
-    .modal-fade-in {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-
-    .modal-fade-out {
-      animation: fadeOut 0.3s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      to {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-    }
   </style>
 </head>
 
 <body class="bg-gray-100 min-h-screen">
-<x-header />
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-6">
+      <h1 class="text-2xl font-bold text-gray-800">SaveSmart</h1>
+    </div>
+  </header>
 
   <!-- Main Content -->
   <div class="container mx-auto px-4 py-8">
@@ -65,7 +30,7 @@
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 space-y-4 md:space-y-0">
       <div class="flex items-center space-x-2">
         <h2 class="text-xl font-semibold text-gray-800">Your Goals</h2>
-        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full" id="goalCount">0 Goals</span>
+        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full" id="goalCount">6 Goals</span>
       </div>
       <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
         <div class="relative">
@@ -79,109 +44,90 @@
       </div>
     </div>
     
-    <!-- Goals Summary -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <div class="flex items-center mb-2">
-          <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-            <i class="fas fa-flag text-blue-600"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-800">Total Goals</h3>
-            <p class="text-2xl font-bold text-gray-800" id="totalGoalsCount">6</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <div class="flex items-center mb-2">
-          <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-            <i class="fas fa-check text-green-600"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-800">Total Saved</h3>
-            <p class="text-2xl font-bold text-gray-800" id="totalSaved">$12,450</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <div class="flex items-center mb-2">
-          <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
-            <i class="fas fa-bullseye text-purple-600"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-800">Target Amount</h3>
-            <p class="text-2xl font-bold text-gray-800" id="totalTarget">$28,500</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Goals Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="goalsContainer">
-      <!-- Example Goal Card (Fixed) -->
-     <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
-        <div class="p-1 bg-blue-500"></div>
-        @foreach ($goals as $goal)
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-4">
-            <div class="flex items-center">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-blue-100">
-                <i class="fas fa-plane text-lg text-blue-500"></i>
-              </div>
-
-              <div>
-                <h3 class="text-lg font-semibold text-gray-800">{{ $goal->name }}</h3>
-                <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">{{ $goal->category->name }}</span>
-              </div>
-            </div>
-            <div class="dropdown relative">
-              <button class="text-gray-400 hover:text-gray-600 focus:outline-none" data-goal-id="1">
-                <i class="fas fa-ellipsis-v"></i>
-              </button>
-              <div class="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-10">
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 edit-goal" data-goal-id="1">
-                  <i class="fas fa-edit mr-2"></i> Edit
-                </a>
-                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 delete-goal" data-goal-id="1">
-                  <i class="fas fa-trash mr-2"></i> Delete
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mb-4">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-sm font-medium text-gray-700">75% Complete</span>
-              <span class="text-sm font-medium text-gray-700">$3,750 / $5,000</span>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2.5">
-              <div class="h-2.5 rounded-full bg-blue-500" style="width: 75%"></div>
-            </div>
-          </div>
-          
-          <div class="flex justify-between items-center text-sm text-gray-500">
-            <div>
-              <i class="fas fa-dollar-sign mr-1"></i> $1,250 left
-            </div>
-            <div>
-              <i class="far fa-calendar-alt mr-1"></i> 2 months left
-            </div>
-          </div>
-          
-          <div class="mt-4 pt-4 border-t border-gray-100">
-            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition duration-300 add-funds" data-goal-id="1">
-              <i class="fas fa-plus mr-2"></i> Add Funds
-            </button>
-          </div>
-        </div>
-               
-        @endforeach
+    <!-- Goals Table -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+      <div class="overflow-x-auto">
+        <table class="w-full table-auto">
+          <thead class="bg-gray-50 text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <tr>
+              <th class="px-6 py-3 text-left">Goal</th>
+              <th class="px-6 py-3 text-left">Category</th>
+              <!-- <th class="px-6 py-3 text-left">Progress</th> -->
+              <th class="px-6 py-3 text-left">Amount</th>
+              <th class="px-6 py-3 text-left">Remaining</th>
+              <th class="px-6 py-3 text-left">Deadline</th>
+              <th class="px-6 py-3 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white text-sm text-gray-700">
+            @foreach ($goals as $goal)
+            <!-- Goal 1 -->
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="font-medium text-gray-800">{{ $goal->name }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2.5 py-0.5 rounded-full">{{ $goal->category->name }}</span>
+              </td>
+              <!-- <td class="px-6 py-4 whitespace-nowrap">
+                <div class="w-full max-w-[150px]">
+                  <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs font-medium text-gray-700">75%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="h-2 rounded-full bg-blue-500" style="width: 75%"></div>
+                  </div>
+                </div>
+              </td> -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                ${{ $goal->current_amount }} / ${{ $goal->target_amount }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <i class="fas fa-dollar-sign text-gray-400 mr-1"></i>
+                  <span>{{ $goal->target_amount - $goal->current_amount }}</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <i class="far fa-calendar-alt text-gray-400 mr-1"></i>
+                  <span>{{ $goal->target_date }}</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-center">
+                <div class="flex justify-center space-x-2">
+                  <button class="text-blue-600 hover:text-blue-800 p-1" title="Add Funds">
+                    <i class="fas fa-plus-circle"></i>
+                  </button>
+                  <button class="text-gray-600 hover:text-gray-800 p-1" title="Edit">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="text-red-600 hover:text-red-800 p-1" title="Delete">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
       </div>
     </div>
     
-    <!-- Empty State -->
+    <!-- Table Actions -->
+    <div class="flex justify-between items-center mb-8">
+      
+      <div class="flex items-center space-x-2">
+        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-file-export mr-1"></i> Export
+        </button>
+        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-print mr-1"></i> Print
+        </button>
+      </div>
+    </div>
+    
+    <!-- Empty State (Hidden by default) -->
     <div id="emptyState" class="hidden text-center py-16">
       <div class="mx-auto w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mb-4">
         <i class="fas fa-flag text-gray-400 text-3xl"></i>
@@ -196,15 +142,14 @@
 
   <!-- Add Goal Modal -->
   <div id="goalModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
-    <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-4 modal-fade-in">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-4">
       <div class="flex justify-between items-center p-6 border-b">
         <h3 class="text-xl font-bold text-gray-800">Add New Financial Goal</h3>
         <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700 focus:outline-none">
           <i class="fas fa-times text-xl"></i>
         </button>
       </div>
-      <form id="goalForm" class="p-6 space-y-4" action="goals.create" method="POST">
-        @csrf
+      <form id="goalForm" class="p-6 space-y-4">
         <div>
           <label for="goalName" class="block text-sm font-medium text-gray-700 mb-1">Goal Name</label>
           <input type="text" id="goalName" name="goalName" required
@@ -217,10 +162,13 @@
           <select id="goalCategory" name="goalCategory" required
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="">Select a category</option>
-            @foreach ($categories as $category )
-            <option value="vacation">{{ $category->name }}</option>
-            @endforeach
-          
+            <option value="travel">Travel</option>
+            <option value="savings">Savings</option>
+            <option value="transportation">Transportation</option>
+            <option value="housing">Housing</option>
+            <option value="education">Education</option>
+            <option value="life-events">Life Events</option>
+            <option value="other">Other</option>
           </select>
         </div>
         
@@ -266,7 +214,7 @@
 
   <!-- Delete Confirmation Modal -->
   <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
-    <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-4 modal-fade-in p-6">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
       <div class="text-center mb-6">
         <div class="mx-auto w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4">
           <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
@@ -286,51 +234,216 @@
     </div>
   </div>
 
+  <!-- Add Funds Modal -->
+  <div id="addFundsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-4">
+      <div class="flex justify-between items-center p-6 border-b">
+        <h3 class="text-xl font-bold text-gray-800">Add Funds to Goal</h3>
+        <button id="closeAddFundsBtn" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <form id="addFundsForm" class="p-6 space-y-4">
+        <div>
+          <label for="goalTitle" class="block text-sm font-medium text-gray-700 mb-1">Goal</label>
+          <input type="text" id="goalTitle" name="goalTitle" disabled
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700"
+            value="Vacation Fund">
+        </div>
+        
+        <div>
+          <label for="currentBalance" class="block text-sm font-medium text-gray-700 mb-1">Current Balance</label>
+          <input type="text" id="currentBalance" name="currentBalance" disabled
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700"
+            value="$3,750.00">
+        </div>
+        
+        <div>
+          <label for="addAmount" class="block text-sm font-medium text-gray-700 mb-1">Amount to Add ($)</label>
+          <input type="number" id="addAmount" name="addAmount" required min="1" step="0.01"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="500.00">
+        </div>
+        
+        <div>
+          <label for="fundingSource" class="block text-sm font-medium text-gray-700 mb-1">Funding Source</label>
+          <select id="fundingSource" name="fundingSource" required
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Select a funding source</option>
+            <option value="checking">Checking Account (****1234)</option>
+            <option value="savings">Savings Account (****5678)</option>
+            <option value="credit">Credit Card (****9012)</option>
+            <option value="external">External Transfer</option>
+          </select>
+        </div>
+        
+        <div>
+          <label for="fundingNotes" class="block text-sm font-medium text-gray-700 mb-1">Notes (Optional)</label>
+          <textarea id="fundingNotes" name="fundingNotes" rows="2"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Add any notes about this contribution..."></textarea>
+        </div>
+        
+        <div class="flex justify-end space-x-3 pt-4">
+          <button type="button" id="cancelAddFundsBtn" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Add Funds
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
+    // Modal functionality
     const emptyStateBtn = document.getElementById('emptyStateBtn');
     const newGoalBtn = document.getElementById('newGoalBtn');
     const goalModal = document.getElementById('goalModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const cancelGoalBtn = document.getElementById('cancelGoalBtn');
     const goalForm = document.getElementById('goalForm');
+    const deleteModal = document.getElementById('deleteModal');
+    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const addFundsModal = document.getElementById('addFundsModal');
+    const closeAddFundsBtn = document.getElementById('closeAddFundsBtn');
+    const cancelAddFundsBtn = document.getElementById('cancelAddFundsBtn');
+    const addFundsForm = document.getElementById('addFundsForm');
 
-    function openModal() {
+    // Open modals
+    function openGoalModal() {
       goalModal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }
 
-    function closeModal() {
+    function openDeleteModal() {
+      deleteModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openAddFundsModal(goalName, currentAmount) {
+      document.getElementById('goalTitle').value = goalName;
+      document.getElementById('currentBalance').value = '$' + currentAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      addFundsModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close modals
+    function closeGoalModal() {
       goalModal.classList.add('hidden');
       document.body.style.overflow = '';
       goalForm.reset();
     }
 
-    emptyStateBtn.addEventListener('click', openModal);
-    newGoalBtn.addEventListener('click', openModal);
-    closeModalBtn.addEventListener('click', closeModal);
-    cancelGoalBtn.addEventListener('click', closeModal);
+    function closeDeleteModal() {
+      deleteModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
 
-    // Close modal when clicking outside
+    function closeAddFundsModal() {
+      addFundsModal.classList.add('hidden');
+      document.body.style.overflow = '';
+      addFundsForm.reset();
+    }
+
+    // Event listeners for opening modals
+    if (emptyStateBtn) emptyStateBtn.addEventListener('click', openGoalModal);
+    if (newGoalBtn) newGoalBtn.addEventListener('click', openGoalModal);
+
+    // Event listeners for closing modals
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeGoalModal);
+    if (cancelGoalBtn) cancelGoalBtn.addEventListener('click', closeGoalModal);
+    if (cancelDeleteBtn) cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+    if (closeAddFundsBtn) closeAddFundsBtn.addEventListener('click', closeAddFundsModal);
+    if (cancelAddFundsBtn) cancelAddFundsBtn.addEventListener('click', closeAddFundsModal);
+
+    // Close modals when clicking outside
     goalModal.addEventListener('click', (e) => {
-      if (e.target === goalModal) {
-        closeModal();
-      }
+      if (e.target === goalModal) closeGoalModal();
     });
 
+    deleteModal.addEventListener('click', (e) => {
+      if (e.target === deleteModal) closeDeleteModal();
+    });
+
+    addFundsModal.addEventListener('click', (e) => {
+      if (e.target === addFundsModal) closeAddFundsModal();
+    });
+
+    // Close modals with Escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !goalModal.classList.contains('hidden')) {
-        closeModal();
+      if (e.key === 'Escape') {
+        if (!goalModal.classList.contains('hidden')) closeGoalModal();
+        if (!deleteModal.classList.contains('hidden')) closeDeleteModal();
+        if (!addFundsModal.classList.contains('hidden')) closeAddFundsModal();
       }
     });
 
-    // Handle form submission
+    // Handle form submissions
     goalForm.addEventListener('submit', (e) => {
       e.preventDefault();
       // Here you would typically handle the form data, e.g., send it to a server
-      console.log('Form submitted');
-      closeModal();
+      console.log('Goal form submitted');
+      closeGoalModal();
+    });
+
+    addFundsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Here you would handle adding funds to the goal
+      console.log('Funds added');
+      closeAddFundsModal();
+    });
+
+    // Set up action buttons in the table
+    document.querySelectorAll('button[title="Add Funds"]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const row = this.closest('tr');
+        const goalName = row.querySelector('td:first-child div').textContent;
+        const amountText = row.querySelector('td:nth-child(4)').textContent;
+        const currentAmount = parseFloat(amountText.split('/')[0].replace('$', '').replace(',', '').trim());
+        openAddFundsModal(goalName, currentAmount);
+      });
+    });
+
+    document.querySelectorAll('button[title="Edit"]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        openGoalModal();
+        // Here you would populate the form with the goal data
+      });
+    });
+
+    document.querySelectorAll('button[title="Delete"]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        openDeleteModal();
+      });
+    });
+
+    // Confirm delete
+    confirmDeleteBtn.addEventListener('click', () => {
+      // Here you would handle the deletion logic
+      console.log('Goal deleted');
+      closeDeleteModal();
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('searchGoals');
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      const rows = document.querySelectorAll('tbody tr');
+      
+      rows.forEach(row => {
+        const goalName = row.querySelector('td:first-child div').textContent.toLowerCase();
+        const category = row.querySelector('td:nth-child(2) span').textContent.toLowerCase();
+        
+        if (goalName.includes(searchTerm) || category.includes(searchTerm)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
     });
   </script>
 </body>
 </html>
-
