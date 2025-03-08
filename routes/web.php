@@ -35,6 +35,10 @@ Route::get('/profiles/select/{id}', [ProfileController::class, 'select'])->name(
 // Route for displaying the goals (GET)
 Route::get('/goals', [GoalController::class, 'index'])->name('goals.index');
 Route::post('/goals', [GoalController::class, 'create'])->name('goals.create');
+Route::post('/goals/{goal}/add-funds', [GoalController::class, 'addFunds'])->name('goals.add-funds');
+Route::post('/goals/budget-recommendations', [GoalController::class, 'getBudgetRecommendations'])->name('goals.budget-recommendations');
+Route::get('/goals/export/csv', [GoalController::class, 'exportCsv'])->name('goals.export.csv');
+Route::get('/goals/export/pdf', [GoalController::class, 'exportPdf'])->name('goals.export.pdf');
 
 
 // categories

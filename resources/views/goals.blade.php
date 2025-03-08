@@ -52,7 +52,7 @@
             <tr>
               <th class="px-6 py-3 text-left">Goal</th>
               <th class="px-6 py-3 text-left">Category</th>
-              <!-- <th class="px-6 py-3 text-left">Progress</th> -->
+              <th class="px-6 py-3 text-left">Progress</th>
               <th class="px-6 py-3 text-left">Amount</th>
               <th class="px-6 py-3 text-left">Remaining</th>
               <th class="px-6 py-3 text-left">Deadline</th>
@@ -61,33 +61,46 @@
           </thead>
           <tbody class="divide-y divide-gray-200 bg-white text-sm text-gray-700">
             @foreach ($goals as $goal)
-            <!-- Goal 1 -->
-            <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
+            <tr class="hover:bg-gray-50" data-goal-id="{{ $goal->id }}">
+              <td class="px-6 py-4">
                 <div class="font-medium text-gray-800">{{ $goal->name }}</div>
+                <div class="text-gray-500 text-xs mt-1">{{ $goal->description }}</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2.5 py-0.5 rounded-full">{{ $goal->category->name }}</span>
+                <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2.5 py-0.5 rounded-full">{{ $goal->name }}</span>
               </td>
-             
+              <td class="px-6 py-4">
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+                  <div class="bg-blue-600 h-2.5 rounded-full progress-bar-fill" style="width: {{ $goal->progress['percentage'] }}%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-gray-500">
+                  <span>{{ $goal->progress['percentage'] }}%</span>
+                  @if($goal->progress['is_on_track'])
+                    <span class="text-green-600">On Track</span>
+                  @else
+                    <span class="text-red-600">Behind Schedule</span>
+                  @endif
+                </div>
+              </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                ${{ $goal->current_amount }} / ${{ $goal->target_amount }}
+                €{{ number_format($goal->current_amount, 2) }} / €{{ number_format($goal->target_amount, 2) }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
-                  <i class="fas fa-dollar-sign text-gray-400 mr-1"></i>
-                  <span>{{ $goal->target_amount - $goal->current_amount }}</span>
+                  <i class="fas fa-euro-sign text-gray-400 mr-1"></i>
+                  <span>{{ number_format($goal->progress['remaining_amount'], 2) }}</span>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
                   <i class="far fa-calendar-alt text-gray-400 mr-1"></i>
                   <span>{{ $goal->target_date }}</span>
+                  <span class="text-xs text-gray-500 ml-2">({{ $goal->progress['days_remaining'] }} days left)</span>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-center">
                 <div class="flex justify-center space-x-2">
-                  <button class="text-blue-600 hover:text-blue-800 p-1" title="Add Funds">
+                  <button class="text-blue-600 hover:text-blue-800 p-1" title="Add Funds" onclick="openAddFundsModal('{{ $goal->name }}', {{ $goal->current_amount }}, {{ $goal->id }}, {{ $goal->target_amount }})">
                     <i class="fas fa-plus-circle"></i>
                   </button>
                   <button class="text-gray-600 hover:text-gray-800 p-1" title="Edit">
@@ -109,11 +122,11 @@
     <div class="flex justify-between items-center mb-8">
       
       <div class="flex items-center space-x-2">
-        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50">
-          <i class="fas fa-file-export mr-1"></i> Export
+        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50" onclick="window.location.href='{{ route('goals.export.csv') }}'">
+          <i class="fas fa-file-csv mr-1"></i> Export CSV
         </button>
-        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50">
-          <i class="fas fa-print mr-1"></i> Print
+        <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50" onclick="window.location.href='{{ route('goals.export.pdf') }}'">
+          <i class="fas fa-file-pdf mr-1"></i> Export PDF
         </button>
       </div>
     </div>
@@ -234,19 +247,19 @@
           <i class="fas fa-times text-xl"></i>
         </button>
       </div>
-      <form id="addFundsForm" class="p-6 space-y-4">
+      <form id="addFundsForm" class="p-6 space-y-4" data-goal-id="{{ $goal->id }}">
         <div>
           <label for="goalTitle" class="block text-sm font-medium text-gray-700 mb-1">Goal</label>
           <input type="text" id="goalTitle" name="goalTitle" disabled
             class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700"
-            value="Vacation Fund">
+            value="{{ $goal->name }}">
         </div>
         
         <div>
           <label for="currentBalance" class="block text-sm font-medium text-gray-700 mb-1">Current Balance</label>
           <input type="text" id="currentBalance" name="currentBalance" disabled
             class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700"
-            value="$3,750.00">
+            value="{{ $goal->current_amount }}">
         </div>
         
         <div>
@@ -287,6 +300,103 @@
     </div>
   </div>
 
+  <!-- Budget Optimization Modal -->
+  <div id="budgetModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-4">
+      <div class="flex justify-between items-center p-6 border-b">
+        <h3 class="text-xl font-bold text-gray-800">Budget Optimization</h3>
+        <button id="closeBudgetBtn" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <form id="budgetForm" class="p-6 space-y-4">
+        <div>
+          <label for="monthlyIncome" class="block text-sm font-medium text-gray-700 mb-1">Monthly Income (€)</label>
+          <input type="number" id="monthlyIncome" name="monthly_income" required min="1" step="0.01"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="3000.00">
+        </div>
+        
+        <div>
+          <label for="needsExpenses" class="block text-sm font-medium text-gray-700 mb-1">Current Needs Expenses (€)</label>
+          <input type="number" id="needsExpenses" name="needs_expenses" required min="0" step="0.01"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="1500.00">
+        </div>
+        
+        <div>
+          <label for="wantsExpenses" class="block text-sm font-medium text-gray-700 mb-1">Current Wants Expenses (€)</label>
+          <input type="number" id="wantsExpenses" name="wants_expenses" required min="0" step="0.01"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="900.00">
+        </div>
+        
+        <div>
+          <label for="savingsExpenses" class="block text-sm font-medium text-gray-700 mb-1">Current Savings (€)</label>
+          <input type="number" id="savingsExpenses" name="savings_expenses" required min="0" step="0.01"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="600.00">
+        </div>
+        
+        <div class="flex justify-end space-x-3 pt-4">
+          <button type="button" id="cancelBudgetBtn" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Get Recommendations
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Budget Results Modal -->
+  <div id="budgetResultsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-4">
+      <div class="flex justify-between items-center p-6 border-b">
+        <h3 class="text-xl font-bold text-gray-800">Budget Recommendations</h3>
+        <button id="closeBudgetResultsBtn" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <div class="p-6 space-y-6">
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-3">50/30/20 Rule Allocation</h4>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-gray-600">Needs (50%)</span>
+              <span class="font-medium" id="needsAllocation">€0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Wants (30%)</span>
+              <span class="font-medium" id="wantsAllocation">€0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Savings (20%)</span>
+              <span class="font-medium" id="savingsAllocation">€0.00</span>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-3">Monthly Goal Requirements</h4>
+          <p class="text-gray-600" id="monthlyGoalRequirements">€0.00</p>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-3">Suggestions</h4>
+          <ul class="list-disc list-inside text-gray-600 space-y-2" id="suggestions">
+          </ul>
+        </div>
+      </div>
+      <div class="p-6 border-t bg-gray-50">
+        <button id="closeBudgetResultsConfirmBtn" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          Got it
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Modal functionality
     const emptyStateBtn = document.getElementById('emptyStateBtn');
@@ -314,11 +424,14 @@
       document.body.style.overflow = 'hidden';
     }
 
-    function openAddFundsModal(goalName, currentAmount) {
+    function openAddFundsModal(goalName, currentAmount, goalId, targetAmount) {
       document.getElementById('goalTitle').value = goalName;
-      document.getElementById('currentBalance').value = '$' + currentAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('currentBalance').value = '€' + currentAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      addFundsForm.dataset.goalId = goalId;
+      addFundsForm.dataset.targetAmount = targetAmount;
       addFundsModal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+      document.getElementById('addAmount').focus();
     }
 
     // Close modals
@@ -380,11 +493,48 @@
       closeGoalModal();
     });
 
-    addFundsForm.addEventListener('submit', (e) => {
+    addFundsForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Here you would handle adding funds to the goal
-      console.log('Funds added');
-      closeAddFundsModal();
+      
+      const goalId = addFundsForm.dataset.goalId;
+      const formData = new FormData(addFundsForm);
+      
+      try {
+        const response = await fetch(`/goals/${goalId}/add-funds`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({
+            amount: formData.get('addAmount'),
+            funding_source: formData.get('fundingSource'),
+            notes: formData.get('fundingNotes')
+          })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Update the UI
+          const row = document.querySelector(`tr[data-goal-id="${goalId}"]`);
+          const amountCell = row.querySelector('td:nth-child(3)');
+          const remainingCell = row.querySelector('td:nth-child(4) span');
+          const progressBar = row.querySelector('.progress-bar-fill');
+          
+          amountCell.textContent = `€${data.new_balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} / €${formData.get('targetAmount')}`;
+          remainingCell.textContent = `€${data.progress.remaining_amount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+          
+          if (progressBar) {
+            progressBar.style.width = `${data.progress.percentage}%`;
+          }
+          
+          closeAddFundsModal();
+        }
+      } catch (error) {
+        console.error('Error adding funds:', error);
+        alert('There was an error adding funds. Please try again.');
+      }
     });
 
     // Set up action buttons in the table
@@ -394,7 +544,7 @@
         const goalName = row.querySelector('td:first-child div').textContent;
         const amountText = row.querySelector('td:nth-child(4)').textContent;
         const currentAmount = parseFloat(amountText.split('/')[0].replace('$', '').replace(',', '').trim());
-        openAddFundsModal(goalName, currentAmount);
+        openAddFundsModal(goalName, currentAmount, row.dataset.goalId, row.querySelector('td:nth-child(5)').textContent.split('/')[1].trim());
       });
     });
 
@@ -434,6 +584,87 @@
           row.style.display = 'none';
         }
       });
+    });
+
+    // Budget optimization functionality
+    const budgetModal = document.getElementById('budgetModal');
+    const closeBudgetBtn = document.getElementById('closeBudgetBtn');
+    const cancelBudgetBtn = document.getElementById('cancelBudgetBtn');
+    const budgetForm = document.getElementById('budgetForm');
+    const budgetResultsModal = document.getElementById('budgetResultsModal');
+    const closeBudgetResultsBtn = document.getElementById('closeBudgetResultsBtn');
+    const closeBudgetResultsConfirmBtn = document.getElementById('closeBudgetResultsConfirmBtn');
+
+    function openBudgetModal() {
+      budgetModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBudgetModal() {
+      budgetModal.classList.add('hidden');
+      document.body.style.overflow = '';
+      budgetForm.reset();
+    }
+
+    function closeBudgetResultsModal() {
+      budgetResultsModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Add budget optimization button to the header
+    const actionsDiv = document.querySelector('.flex.items-center.space-x-2');
+    const optimizeBtn = document.createElement('button');
+    optimizeBtn.className = 'px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50';
+    optimizeBtn.innerHTML = '<i class="fas fa-calculator mr-1"></i> Optimize Budget';
+    optimizeBtn.addEventListener('click', openBudgetModal);
+    actionsDiv.insertBefore(optimizeBtn, actionsDiv.firstChild);
+
+    // Event listeners for budget modals
+    closeBudgetBtn.addEventListener('click', closeBudgetModal);
+    cancelBudgetBtn.addEventListener('click', closeBudgetModal);
+    closeBudgetResultsBtn.addEventListener('click', closeBudgetResultsModal);
+    closeBudgetResultsConfirmBtn.addEventListener('click', closeBudgetResultsModal);
+
+    budgetModal.addEventListener('click', (e) => {
+      if (e.target === budgetModal) closeBudgetModal();
+    });
+
+    budgetResultsModal.addEventListener('click', (e) => {
+      if (e.target === budgetResultsModal) closeBudgetResultsModal();
+    });
+
+    // Handle budget form submission
+    budgetForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(budgetForm);
+      const response = await fetch('{{ route('goals.budget-recommendations') }}', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
+      });
+      
+      const data = await response.json();
+      
+      // Update results modal
+      document.getElementById('needsAllocation').textContent = '€' + data.allocation.needs.toFixed(2);
+      document.getElementById('wantsAllocation').textContent = '€' + data.allocation.wants.toFixed(2);
+      document.getElementById('savingsAllocation').textContent = '€' + data.allocation.savings.toFixed(2);
+      document.getElementById('monthlyGoalRequirements').textContent = '€' + data.monthly_goal_requirements.toFixed(2);
+      
+      const suggestionsList = document.getElementById('suggestions');
+      suggestionsList.innerHTML = '';
+      data.suggestions.forEach(suggestion => {
+        const li = document.createElement('li');
+        li.textContent = suggestion;
+        suggestionsList.appendChild(li);
+      });
+      
+      closeBudgetModal();
+      budgetResultsModal.classList.remove('hidden');
     });
   </script>
 </body>
