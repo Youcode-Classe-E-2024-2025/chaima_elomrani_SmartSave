@@ -69,16 +69,7 @@
               <td class="px-6 py-4 whitespace-nowrap">
                 <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2.5 py-0.5 rounded-full">{{ $goal->category->name }}</span>
               </td>
-              <!-- <td class="px-6 py-4 whitespace-nowrap">
-                <div class="w-full max-w-[150px]">
-                  <div class="flex justify-between items-center mb-1">
-                    <span class="text-xs font-medium text-gray-700">75%</span>
-                  </div>
-                  <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="h-2 rounded-full bg-blue-500" style="width: 75%"></div>
-                  </div>
-                </div>
-              </td> -->
+             
               <td class="px-6 py-4 whitespace-nowrap">
                 ${{ $goal->current_amount }} / ${{ $goal->target_amount }}
               </td>

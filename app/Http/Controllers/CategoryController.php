@@ -1,43 +1,35 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class CategoryController extends Controller
 {
-
     public function index(){
-        $categories = Category::all();
+        $id = session('id');
+
+        \Log::info('Current profile ID from session: ' . $id);
+        $categories = Category::where('profile_id', $id)->get();
         return view('categories', compact('categories'));
     }
-    public function dashboard(){
-        $categories = Category::all();
-        return view('dashboard', compact('categories'));
-    }
 
-    public function create(Request $request){
-        $request->validate([
-            'name' => 'required|string|max:20',
+
+
+    public function store(Request $request){
+        $validated = $request->validate([
+            'name' => 'required|string|max:255'
         ]);
-    
+        
+        $id = session('id');
         Category::create([
-            'name' => $request->name,
+            'name'=> $validated['name'],
+            'profile_id'=> $id,
         ]);
-    
-        return redirect('categories')->with('success', 'Category added successfully!');
+
+        return redirect('categories')->with('success', 'well done!');
     }
-
-
-    public function delete($id){
-        Category::destroy($id);
-        return redirect('categories');
-
-    }
-
-
-
-
 }

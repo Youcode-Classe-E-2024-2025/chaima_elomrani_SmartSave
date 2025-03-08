@@ -114,11 +114,9 @@
                                         <td class="py-3 px-4">{{ $category->name }}</td>
                                         <td class="py-3 px-4">
                                             <button class="text-blue-500 hover:text-blue-700 mr-2">Edit</button>
-                                            <form action="{{ route('category.delete', $category->id) }}" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
+                                          
                                                 <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
-                                            </form>
+                                         
                                         </td>
                                     </tr>
                                 @endforeach

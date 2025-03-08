@@ -25,16 +25,6 @@ Route::delete('profile/{id}',[ProfileController::class , 'delete'])->name('profi
 Route::get('/showDashboard', [ProfileController::class , 'showDashboard' ]);
 
 
-//category crud
-
-// Category routes
-Route::get('/dashboard', [CategoryController::class, 'dashboard']);
-Route::post('/dashboard', [CategoryController::class, 'create']);
-Route::delete('/dashboard/{id}', [CategoryController::class, 'delete'])->name('category.delete');   
-Route::get('/categories', [CategoryController::class, 'index']);
-// Route::get('/dashboard', [Transactions::class , 'getAll']);
-
-
 // dashboard/transactions
 Route::get('/transactions', [TransactionsController::class, 'index']);
 Route::delete('transactions/{id}',[TransactionsController::class, 'delete'])->name('transaction.delete');
@@ -46,3 +36,7 @@ Route::get('/profiles/select/{id}', [ProfileController::class, 'select'])->name(
 Route::get('/goals', [GoalController::class, 'index'])->name('goals.index');
 Route::post('/goals', [GoalController::class, 'create'])->name('goals.create');
 
+
+// categories
+Route::get('/categories',[CategoryController::class, 'index']);
+Route::post('/categories',[CategoryController::class, 'store']);

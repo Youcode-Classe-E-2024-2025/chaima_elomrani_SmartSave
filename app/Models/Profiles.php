@@ -11,4 +11,10 @@ class Profiles extends Model
     public function profiles(){
         return $this->hasMany(Profiles::class, 'user_id');
     }
+
+
+
+    public function category():BelongsTo{
+        return $this->belongsto(Category::class);
+    }
 }
